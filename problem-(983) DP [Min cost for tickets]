@@ -1,0 +1,41 @@
+DP-983
+MIN COST FOR TICKETS
+https://leetcode.com/problems/minimum-cost-for-tickets/
+
+#for the bottom up approach in DP, you should strictly keep this in mind that you are going to need one extra space structure ,that 
+is basically an array to store the previous calculations and choose the maximum or minimum as specified in your question.
+
+#Here, we take a boolean array to store the positions and another int array for storing the cost.
+#The tracing for the array given as an example will be:-
+
+days=[1,4,6,7,8,20] and cost=[2,7,15]
+boolean array=[f,t,f,f,t,f,t,t,t,f,f,f,f,f,f,f,f,f,f,f,t]
+cost array=[0,2,2,2,4,4,6,7,9,9,9,9,9,9,9,9,9,9,9,9,11]
+
+keeping all this in mind, here is the code.
+
+#THE CODE~
+
+public int mincostTickets(int[] days, int[] costs) {
+        int n=days[days.length-1];
+         boolean bobo[]=new boolean[n+1];
+        int dp[]=new int[n+1];
+        for(int x:days)
+        {
+          bobo[x]=true;
+        }
+        for(int i=1;i<dp.length;i++)
+        {
+            if(bobo[i]==false)
+            {
+                dp[i]=dp[i-1];
+            }
+            else
+            {
+                int one=dp[i-1]+costs[0];
+                int two=dp[Math.max(i-7,0)]+costs[1];
+                int three=dp[Math.max(i-30,0)]+costs[2];
+                dp[i]=Math.min(one,Math.min(two,three));
+            }
+        }
+        return dp[n];
