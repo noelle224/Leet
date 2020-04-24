@@ -1,0 +1,41 @@
+#Problem-1027
+#Link- https://leetcode.com/problems/longest-arithmetic-sequence/
+
+#solution:
+
+ public int longestArithSeqLength(int[] A) {
+        int n=A.length;
+	int mat[][]=new int[n][n];
+	for(int i=0;i<n;i++)
+	{
+		for(int j=i+1;j<n;j++)
+		{
+			mat[i][j]=A[i]-A[j];
+		}
+	}
+        int cfinal=Integer.MIN_VALUE;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=i+1;j<n;j++)
+		{
+			int count=1;
+			int k=mat[i][j];
+			int p=j;
+			int m=j+1;
+			while(m<n && p<n)
+			{
+			 if(mat[p][m]==k)
+			 {
+				 count++;
+				 p=m;
+				 m=m+1;
+			 }
+			 else
+				 m++;
+			}
+			cfinal=Math.max(cfinal, count);
+		}
+		
+	}
+       cfinal=cfinal+1; 
+     return cfinal;  
