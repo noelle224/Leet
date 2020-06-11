@@ -1,0 +1,73 @@
+problem name:- Your Social network
+problem link:- https://practice.geeksforgeeks.org/problems/your-social-network/0
+
+description:- Influenced by Social Networking sites, Rahul launches his own site Friendsbook.
+              Each user in Friendsbook is given a unique number, first user being numbered 1. 
+              There are N users in Friendsbook numbered from 1 to N. In Friendsbook, i th user can make j th user his friend without becoming his friend himself, i.e. in Friendsbook, there is a one-way link rather than a two-way link as in Facebook. Moreover i th user can make j th user his friend iff i>j. Also one user should have no more and no less than one friend except user 1 who will have no friend. 
+              Rahul wants to modify Friendsbook and find out whether one user is somehow linked to some other user. Help Rahul do so.
+              
+solution:-
+
+
+public class Practice {
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner in=new Scanner(System.in);
+		int t=in.nextInt();
+		while(t-->0)
+		{
+			int n=in.nextInt();
+			//int arr[]=new int[n+1];
+			int mat[][]=new int[n+1][n+1];
+			for(int i=2;i<=n;i++)
+			{
+				int a=in.nextInt();
+				mat[i][a]=1;
+			}
+			for(int i=1;i<=n;i++)
+			{
+				for(int j=1;j<=n;j++)
+				{
+					if(i!=j && mat[i][j]==0)
+					{
+						mat[i][j]=(int)1e7;
+					}
+				}
+			}
+			
+				
+			for(int k=1;k<=n;k++)
+			{
+				for(int i=1;i<=n;i++)
+				{
+					for(int j=1;j<=n;j++)
+					{
+						if(mat[i][k]+mat[k][j]<mat[i][j] && i!=j)
+						{
+							mat[i][j]=mat[i][k]+mat[k][j];
+							//System.out.println("hi");
+						}
+					}
+				}
+			}
+			
+			for(int i=1;i<=n;i++)
+			{
+				for(int j=1;j<i;j++)
+				{
+					if(mat[i][j]!=0 && mat[i][j]!=(int)1e7)
+					{
+						System.out.print(i+" "+j+" "+mat[i][j]+" ");
+						
+					}
+				}
+			
+			}
+			System.out.println();
+		}
+		
+
+	}
+
+}
